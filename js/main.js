@@ -1,5 +1,7 @@
 $(document).ready(function () {
     addInputListeners();
+    createInputMessages();
+    setUpForValidation();
 });
 
 function addInputListeners() {
@@ -12,9 +14,17 @@ function addInputListeners() {
 }
 
 function addLoginCheckListener() {
+    document.getElementById("login").onkeydown = function () {
+        clearTimeout(stateAndContants.typingTimer);
+    };
+    document.getElementById("login").onkeyup = function () {
+        clearTimeout(stateAndContants.typingTimer);
+        stateAndContants.typingTimer =
+            setTimeout(getLoginAvailability, stateAndContants.doneTypingInterval);
+    };
     document.getElementById("login").onblur = function () {
         getLoginAvailability();
-    }
+    };
 }
 
 function addPasswordListener() {
@@ -51,9 +61,9 @@ function addSubmitAvailableListener() {
 }
 
 function getLoginAvailability() {
-    var message = document.getElementById('login-message');
-    var usernameField = document.getElementById('login');
-    var username = usernameField.value;
+    var loginDiv = stateAndContants.loginDiv;
+    var loginMessage = stateAndContants.loginMessage;
+    var username = loginDiv.value;
     if (username === "") {
         return;
     }
@@ -61,17 +71,17 @@ function getLoginAvailability() {
 
     $.get(url, function (json) {
         if (json && json[username] === true) {
-            usernameField.style.backgroundColor = applicationState.failureColor;
-            message.style.color = applicationState.failureColor;
-            message.innerHTML = "Username already taken!";
-            applicationState.loginAvailable = false;
+            loginDiv.style.backgroundColor = stateAndContants.FAILURE_COLOR;
+            loginMessage.style.color = stateAndContants.FAILURE_COLOR;
+            loginMessage.innerHTML = "Username already taken!";
+            stateAndContants.loginAvailable = false;
             onFieldChangeAction();
         }
         else {
-            usernameField.style.backgroundColor = applicationState.successColor;
-            message.style.color = applicationState.successColor;
-            message.innerHTML = "Username available!";
-            applicationState.loginAvailable = true;
+            loginDiv.style.backgroundColor = stateAndContants.SUCCESS_COLOR;
+            loginMessage.style.color = stateAndContants.SUCCESS_COLOR;
+            loginMessage.innerHTML = "Username available!";
+            stateAndContants.loginAvailable = true;
             onFieldChangeAction();
         }
     });
@@ -83,8 +93,8 @@ function onFieldChangeAction() {
     var emptyFields = fields.filter(function () {
         return this.value === "";
     });
-    if (!emptyFields.length && applicationState.passwordsMatch &&
-        applicationState.passwordStrongEnough && applicationState.loginAvailable && applicationState.peselCorrect) {
+    if (!emptyFields.length && stateAndContants.passwordsMatch &&
+        stateAndContants.passwordStrongEnough && stateAndContants.loginAvailable && stateAndContants.peselCorrect) {
         submitForm.removeClass("button-unavailable");
         submitForm.addClass("button-available");
         submitForm.removeAttr("disabled");
@@ -97,42 +107,42 @@ function onFieldChangeAction() {
 
 function checkPasswordStrength() {
     var re = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
-    var pass1 = document.getElementById('password');
-    var message = document.getElementById('password-message');
-    if (re.test(pass1.value)) {
-        pass1.style.backgroundColor = applicationState.successColor;
-        message.style.color = applicationState.successColor;
-        message.innerHTML = "Password is strong enough!";
-        applicationState.passwordStrongEnough = true;
+    var passDiv = stateAndContants.passDiv;
+    var passMessage = stateAndContants.passMessage;
+    if (re.test(stateAndContants.passDiv.value)) {
+        passDiv.style.backgroundColor = stateAndContants.SUCCESS_COLOR;
+        passMessage.style.color = stateAndContants.SUCCESS_COLOR;
+        passMessage.innerHTML = "Password is strong enough!";
+        stateAndContants.passwordStrongEnough = true;
         onFieldChangeAction();
     } else {
-        pass1.style.backgroundColor = applicationState.failureColor;
-        message.style.color = applicationState.failureColor;
-        message.innerHTML = "Passwords needs to contain at least 6 signs, " +
+        passDiv.style.backgroundColor = stateAndContants.FAILURE_COLOR;
+        passMessage.style.color = stateAndContants.FAILURE_COLOR;
+        passMessage.innerHTML = "Passwords needs to contain at least 6 signs, " +
             "one lowercase letter, one uppercase letter and a number.";
-        applicationState.passwordStrongEnough = false;
+        stateAndContants.passwordStrongEnough = false;
         onFieldChangeAction();
     }
 }
 
 function checkPasswordMatch() {
-    var pass1 = document.getElementById('password');
-    var pass2 = document.getElementById('repeat-password');
-    var message = document.getElementById('repeat-password-message');
-    if (!pass2.value.length) {
-        message.innerHTML = "";
-        applicationState.passwordsMatch = false;
-    } else if (pass1.value == pass2.value) {
-        pass2.style.backgroundColor = applicationState.successColor;
-        message.style.color = applicationState.successColor;
-        message.innerHTML = "Passwords Match!";
-        applicationState.passwordsMatch = true;
+    var passDiv = stateAndContants.passDiv;
+    var passRepeatDiv = stateAndContants.passRepeatDiv;
+    var repeatPassMessage = stateAndContants.repeatPassMessage;
+    if (!passRepeatDiv.value.length) {
+        repeatPassMessage.innerHTML = "";
+        stateAndContants.passwordsMatch = false;
+    } else if (passDiv.value == passRepeatDiv.value) {
+        passRepeatDiv.style.backgroundColor = stateAndContants.SUCCESS_COLOR;
+        repeatPassMessage.style.color = stateAndContants.SUCCESS_COLOR;
+        repeatPassMessage.innerHTML = "Passwords Match!";
+        stateAndContants.passwordsMatch = true;
         onFieldChangeAction();
     } else {
-        pass2.style.backgroundColor = applicationState.failureColor;
-        message.style.color = applicationState.failureColor;
-        message.innerHTML = "Passwords Do Not Match!";
-        applicationState.passwordsMatch = false;
+        passRepeatDiv.style.backgroundColor = stateAndContants.FAILURE_COLOR;
+        repeatPassMessage.style.color = stateAndContants.FAILURE_COLOR;
+        repeatPassMessage.innerHTML = "Passwords Do Not Match!";
+        stateAndContants.passwordsMatch = false;
         onFieldChangeAction();
     }
 }
@@ -140,12 +150,49 @@ function checkPasswordMatch() {
 function readURL(input) {
     if (input.files && input.files[0]) {
         var fileReader = new FileReader();
-        var preview = $('#avatar-preview');
         fileReader.onload = function (e) {
-            preview.attr('src', e.target.result);
-            preview.addClass("image-preview");
+            createAndAppendImg(e.target.result)
         };
         fileReader.readAsDataURL(input.files[0]);
     }
+}
+
+function setUpForValidation() {
+    $("#submit-form").addClass("button-unavailable");
+}
+
+function createInputMessages() {
+    document.getElementById("login-container").appendChild(createSpanInsideDiv("login-message"));
+    document.getElementById("password-container").appendChild(createSpanInsideDiv("password-message"));
+    document.getElementById("repeat-password-container").appendChild(createSpanInsideDiv("repeat-password-message"));
+    document.getElementById("pesel-container").appendChild(createSpanInsideDiv("pesel-message"));
+    peselValidation.message = document.getElementById('pesel-message');
+    stateAndContants.passDiv = document.getElementById('password');
+    stateAndContants.passRepeatDiv = document.getElementById('repeat-password');
+    stateAndContants.passMessage = document.getElementById('password-message');
+    stateAndContants.repeatPassMessage = document.getElementById('repeat-password-message');
+    stateAndContants.loginDiv = document.getElementById('login');
+    stateAndContants.loginMessage = document.getElementById('login-message');
+}
+
+function createSpanInsideDiv(spanId) {
+    var spanDiv = document.createElement("div");
+    var span = document.createElement("span");
+    span.setAttribute("id", spanId);
+    spanDiv.appendChild(span);
+    spanDiv.className += " message-under-input";
+    return spanDiv;
+}
+
+function createAndAppendImg(imgSrc) {
+    var previousImg = $("#avatar-preview");
+    if(previousImg){
+        previousImg.remove();
+    }
+    var imgDiv = document.createElement("img");
+    imgDiv.setAttribute("id", "avatar-preview");
+    imgDiv.setAttribute("src", imgSrc);
+    imgDiv.className+=" image-preview";
+    document.getElementById("image-preview-div").appendChild(imgDiv);
 }
 

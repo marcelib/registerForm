@@ -1,7 +1,6 @@
 var peselValidation = new function () {
 
     var that = this;
-    this.message = document.getElementById('pesel-message');
 
 
     this.processPeselValidation = function () {
@@ -59,27 +58,27 @@ var peselValidation = new function () {
     this.peselMaleAction = function (result) {
         var maleButton = document.getElementById("male");
         maleButton.checked = true;
-        that.message.style.color = applicationState.successColor;
+        that.message.style.color = stateAndContants.SUCCESS_COLOR;
         that.message.innerHTML = "Pesel is correct and you have been recognized as male.";
         document.getElementById('birthdate').value = result.date.toISOString().substring(0, 10);
-        applicationState.peselCorrect = true;
+        stateAndContants.peselCorrect = true;
         onFieldChangeAction();
     };
 
     this.peselFemaleAction = function (result) {
         var femaleButton = document.getElementById("female");
         femaleButton.checked = true;
-        that.message.style.color = applicationState.successColor;
+        that.message.style.color = stateAndContants.SUCCESS_COLOR;
         that.message.innerHTML = "Pesel is correct and you have been recognized as female.";
         document.getElementById('birthdate').value = result.date.toISOString().substring(0, 10);
-        applicationState.peselCorrect = true;
+        stateAndContants.peselCorrect = true;
         onFieldChangeAction();
     };
 
     this.peselIncorrectAction = function () {
-        that.message.style.color = applicationState.failureColor;
+        that.message.style.color = stateAndContants.FAILURE_COLOR;
         that.message.innerHTML = "Pesel is incorrect!";
-        applicationState.peselCorrect = false;
+        stateAndContants.peselCorrect = false;
         onFieldChangeAction();
     };
 };
