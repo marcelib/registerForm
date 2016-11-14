@@ -74,6 +74,7 @@ function getLoginAvailability() {
             message.style.color = failureColor;
             message.innerHTML = "Username already taken!";
             loginAvailable = false;
+            onFieldChangeAction();
         }
         else {
             usernameField.style.backgroundColor = successColor;
@@ -118,6 +119,7 @@ function checkPasswordStrength() {
         message.innerHTML = "Passwords needs to contain at least 6 signs, " +
             "one lowercase letter, one uppercase letter and a number.";
         passwordStrongEnough = false;
+        onFieldChangeAction();
     }
 }
 
@@ -139,6 +141,7 @@ function checkPasswordMatch() {
         message.style.color = failureColor;
         message.innerHTML = "Passwords Do Not Match!";
         passwordsMatch = false;
+        onFieldChangeAction();
     }
 }
 

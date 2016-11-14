@@ -63,6 +63,7 @@ var peselValidation = new function () {
         that.message.innerHTML = "Pesel is correct and you have been recognized as male.";
         document.getElementById('birthdate').value = result.date.toISOString().substring(0, 10);
         peselCorrect = true;
+        onFieldChangeAction();
     };
 
     this.peselFemaleAction = function (result) {
@@ -72,11 +73,13 @@ var peselValidation = new function () {
         that.message.innerHTML = "Pesel is correct and you have been recognized as female.";
         document.getElementById('birthdate').value = result.date.toISOString().substring(0, 10);
         peselCorrect = true;
+        onFieldChangeAction();
     };
 
     this.peselIncorrectAction = function () {
         that.message.style.color = failureColor;
         that.message.innerHTML = "Pesel is incorrect!";
         peselCorrect = false;
+        onFieldChangeAction();
     };
 };
