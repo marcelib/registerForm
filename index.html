@@ -1,0 +1,59 @@
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up Form</title>
+    <link href='http://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+<form action="http://edi.iem.pw.edu.pl/bach/register/user/" method="post">
+
+    <h1>Sign Up</h1>
+
+    <fieldset>
+        <label for="login">Login:</label>
+        <input type="text" class="non-empty" id="login" name="login" required>
+        <div class="message-under-input"><span id="login-message"></span></div>
+
+        <legend><span class="number">1</span>Your basic info</legend>
+        <label for="firstname">First name:</label>
+        <input type="text" class="non-empty" id="firstname" name="firstname" required>
+        <label for="lastname">Last name:</label>
+        <input type="text" class="non-empty" id="lastname" name="lastname" required>
+
+        <label for="password">Password:</label>
+        <input type="password" class="non-empty" id="password" name="password" required>
+        <div class="message-under-input"><span id="password-message"></span></div>
+
+        <label for="repeat-password">Repeat password:</label>
+        <input type="password" class="non-empty" id="repeat-password" name="repeat-password" required>
+        <div class="message-under-input"><span id="repeat-password-message"></span></div>
+
+        <label for="pesel">Pesel:</label>
+        <input type="text" class="non-empty" name="pesel" title="Podaj 11 cyfrowy pesel" id="pesel"
+               required>
+        <div class="message-under-input"><span id="pesel-message"></span></div>
+
+        <label>Sex:</label>
+        <input type="radio" id="male" value="male" name="user_gender" disabled="disabled">
+
+        <label for="male" class="light">Male</label>
+        <br>
+        <input type="radio" id="female" value="female" name="user_gender" disabled="disabled">
+        <label for="female" class="light">Female</label>
+        <br><br>
+
+        <label for="birthdate">Birth date:</label>
+        <input type="date" class="non-empty " name="birthdate" id="birthdate" min="1900-01-01" disabled="disabled">
+
+        <label for="photo">Avatar:</label>
+        <input type="file" name="photo" id="photo" class="non-empty" required>
+    </fieldset>
+    <img id="avatar-preview" src="">
+    <button id="submit-form" class="button-unavailable" type="submit">Sign Up</button>
+</form>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="js/peselValidation.js"></script>
+<script src="js/main.js"></script>
