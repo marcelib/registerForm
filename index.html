@@ -1,9 +1,12 @@
+<!DOCTYPE html>
+<html>
 <head>
+    <meta name="description" content="Sign up form">
+    <meta name="keywords" content="HTML,CSS,JavaScript">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up Form</title>
-    <link href='http://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="css/main.css">
+    <link type="text/css" rel="stylesheet" href="css/main.css">
 </head>
 <body>
 
@@ -11,23 +14,23 @@
 
     <h1>Sign Up</h1>
 
+    <h2><span class="number">1</span>Fill your information</h2>
     <fieldset>
         <label for="login">Login:</label>
-        <input type="text" class="non-empty" id="login" name="login" required>
+        <input type="text" class="non-empty" id="login" name="login" required="required">
         <div class="message-under-input"><span id="login-message"></span></div>
 
-        <legend><span class="number">1</span>Your basic info</legend>
         <label for="firstname">First name:</label>
-        <input type="text" class="non-empty" id="firstname" name="firstname" required>
+        <input type="text" class="non-empty" id="firstname" name="firstname" required="required">
         <label for="lastname">Last name:</label>
-        <input type="text" class="non-empty" id="lastname" name="lastname" required>
+        <input type="text" class="non-empty" id="lastname" name="lastname" required="required">
 
         <label for="password">Password:</label>
-        <input type="password" class="non-empty" id="password" name="password" required>
+        <input type="password" class="non-empty" id="password" name="password" required="required">
         <div class="message-under-input"><span id="password-message"></span></div>
 
         <label for="repeat-password">Repeat password:</label>
-        <input type="password" class="non-empty" id="repeat-password" name="repeat-password" required>
+        <input type="password" class="non-empty" id="repeat-password" name="repeat-password" required="required">
         <div class="message-under-input"><span id="repeat-password-message"></span></div>
 
         <label for="pesel">Pesel:</label>
@@ -36,24 +39,25 @@
         <div class="message-under-input"><span id="pesel-message"></span></div>
 
         <label>Sex:</label>
-        <input type="radio" id="male" value="male" name="user_gender" disabled="disabled">
-
-        <label for="male" class="light">Male</label>
-        <br>
-        <input type="radio" id="female" value="female" name="user_gender" disabled="disabled">
-        <label for="female" class="light">Female</label>
-        <br><br>
+        <div class="gender-button-first">
+            <input type="radio" id="male" value="male" name="user_gender" disabled="disabled">
+            <label for="male" class="light">Male</label></div>
+        <div class="gender-button">
+            <input type="radio" id="female" value="female" name="user_gender" disabled="disabled">
+            <label for="female" class="light">Female</label></div>
 
         <label for="birthdate">Birth date:</label>
         <input type="date" class="non-empty " name="birthdate" id="birthdate" min="1900-01-01" disabled="disabled">
 
-        <label for="photo">Avatar:</label>
-        <input type="file" name="photo" id="photo" class="non-empty" required>
+        <label class="avatar-label" for="photo">Avatar:</label>
+        <input type="file" name="photo" id="photo" class="non-empty" required="required">
     </fieldset>
-    <img id="avatar-preview" src="">
+    <h5>Image preview:</h5>
+    <img id="avatar-preview" class="image-avatar" alt="will be shown here." src="">
     <button id="submit-form" class="button-unavailable" type="submit">Sign Up</button>
 </form>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="js/peselValidation.js"></script>
 <script src="js/main.js"></script>
+</html>

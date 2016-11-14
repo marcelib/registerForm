@@ -106,16 +106,15 @@ function checkPasswordStrength() {
     var re = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
     var pass1 = document.getElementById('password');
     var message = document.getElementById('password-message');
-    var goodColor = "#66cc66";
-    var badColor = "#ff6666";
     if (re.test(pass1.value)) {
-        pass1.style.backgroundColor = goodColor;
-        message.style.color = goodColor;
+        pass1.style.backgroundColor = successColor;
+        message.style.color = successColor;
         message.innerHTML = "Password is strong enough!";
         passwordStrongEnough = true;
+        onFieldChangeAction();
     } else {
-        pass1.style.backgroundColor = badColor;
-        message.style.color = badColor;
+        pass1.style.backgroundColor = failureColor;
+        message.style.color = failureColor;
         message.innerHTML = "Passwords needs to contain at least 6 signs, " +
             "one lowercase letter, one uppercase letter and a number.";
         passwordStrongEnough = false;
@@ -134,6 +133,7 @@ function checkPasswordMatch() {
         message.style.color = successColor;
         message.innerHTML = "Passwords Match!";
         passwordsMatch = true;
+        onFieldChangeAction();
     } else {
         pass2.style.backgroundColor = failureColor;
         message.style.color = failureColor;
@@ -144,13 +144,13 @@ function checkPasswordMatch() {
 
 function readURL(input) {
     if (input.files && input.files[0]) {
-        var reader = new FileReader();
+        var fileReader = new FileReader();
         var preview = $('#avatar-preview');
-        reader.onload = function (e) {
+        fileReader.onload = function (e) {
             preview.attr('src', e.target.result);
             preview.addClass("image-preview");
         };
-        reader.readAsDataURL(input.files[0]);
+        fileReader.readAsDataURL(input.files[0]);
     }
 }
 
