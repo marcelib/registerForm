@@ -1,12 +1,9 @@
 var peselValidation = new function () {
 
     var that = this;
-
-
+    
     this.processPeselValidation = function () {
-        var peselField = $("#pesel");
-        var pesel = peselField.val();
-        var validationData = that.validatePesel(pesel);
+        var validationData = that.validatePesel();
         if (validationData && validationData.sex === 'm') {
             that.peselMaleAction(validationData);
         } else if (validationData) {
@@ -14,10 +11,12 @@ var peselValidation = new function () {
         } else {
             that.peselIncorrectAction();
         }
+        birthdateAndSexValidation.verifyBirthdateAndSex();
     };
 
-    this.validatePesel = function (pesel) {
+    this.validatePesel = function () {
 
+        var pesel = $("#pesel").val();
         var wages = [9, 7, 3, 1, 9, 7, 3, 1, 9, 7];
         var dateOfBirth = new Date();
         var checksum = 0;

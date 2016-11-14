@@ -9,6 +9,8 @@ function addInputListeners() {
     addPasswordListener();
     addRepeatPasswordListener();
     addPeselListener();
+    addSexListener();
+    addBirthDateListener();
     addPhotoListener();
     addSubmitAvailableListener();
 }
@@ -41,9 +43,22 @@ function addRepeatPasswordListener() {
     };
 }
 
+function addBirthDateListener() {
+    $("#birthdate").change(function () {
+        birthdateAndSexValidation.verifyBirthdateAndSex();
+    })
+}
+
+function addSexListener() {
+    $(".sex-button").change(function () {
+        birthdateAndSexValidation.verifyBirthdateAndSex();
+    });
+}
+
 function addPeselListener() {
     document.getElementById("pesel").onkeyup = function () {
         peselValidation.processPeselValidation();
+        birthdateAndSexValidation.verifyBirthdateAndSex();
     };
 }
 
@@ -63,6 +78,7 @@ function addSubmitAvailableListener() {
 function getLoginAvailability() {
     var loginDiv = stateAndContants.loginDiv;
     var loginMessage = stateAndContants.loginMessage;
+    var loginField = $("#login");
     var username = loginDiv.value;
     if (username === "") {
         return;
@@ -84,9 +100,17 @@ function getLoginAvailability() {
             stateAndContants.loginAvailable = true;
             onFieldChangeAction();
         }
+        loginFieldGlow(loginField);
+
     });
 }
-
+function loginFieldGlow(loginField) {
+    loginField.addClass('glow-effect');
+    loginField.toggleClass('active');
+    setTimeout(function () {
+        loginField.toggleClass('active');
+    }, 500);
+}
 function onFieldChangeAction() {
     var submitForm = $('#submit-form');
     var fields = $(".non-empty");
@@ -166,6 +190,8 @@ function createInputMessages() {
     document.getElementById("password-container").appendChild(createSpanInsideDiv("password-message"));
     document.getElementById("repeat-password-container").appendChild(createSpanInsideDiv("repeat-password-message"));
     document.getElementById("pesel-container").appendChild(createSpanInsideDiv("pesel-message"));
+    document.getElementById("sex-container").appendChild(createSpanInsideDiv("sex-message"));
+    document.getElementById("birthdate-container").appendChild(createSpanInsideDiv("birthdate-message"));
     peselValidation.message = document.getElementById('pesel-message');
     stateAndContants.passDiv = document.getElementById('password');
     stateAndContants.passRepeatDiv = document.getElementById('repeat-password');
@@ -173,6 +199,8 @@ function createInputMessages() {
     stateAndContants.repeatPassMessage = document.getElementById('repeat-password-message');
     stateAndContants.loginDiv = document.getElementById('login');
     stateAndContants.loginMessage = document.getElementById('login-message');
+    stateAndContants.sexMessage = document.getElementById('sex-message');
+    stateAndContants.birthdateMessage = document.getElementById('birthdate-message');
 }
 
 function createSpanInsideDiv(spanId) {
@@ -186,13 +214,13 @@ function createSpanInsideDiv(spanId) {
 
 function createAndAppendImg(imgSrc) {
     var previousImg = $("#avatar-preview");
-    if(previousImg){
+    if (previousImg) {
         previousImg.remove();
     }
     var imgDiv = document.createElement("img");
     imgDiv.setAttribute("id", "avatar-preview");
     imgDiv.setAttribute("src", imgSrc);
-    imgDiv.className+=" image-preview";
+    imgDiv.className += " image-preview";
     document.getElementById("image-preview-div").appendChild(imgDiv);
 }
 

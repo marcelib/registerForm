@@ -1,3 +1,8 @@
+body {
+    font-family: 'Meiryo UI', sans-serif;
+    color: #384047;
+}
+
 .submit-button {
     background-color: #4bc970;
     padding: 19px 39px 18px 39px;
@@ -11,27 +16,20 @@
     margin-bottom: 10px;
 }
 
-body {
-    font-family: 'Meiryo UI', sans-serif;
-    color: #384047;
-}
-
-form {
-    max-width: 300px;
+.main-form {
     margin: 10px auto;
     padding: 30px;
     background: #f4f7f8;
     border-radius: 8px;
+    max-width: 480px;
 }
 
-h1 {
+.main-title {
     margin-bottom: 30px;
     text-align: center;
 }
 
-input[type="text"],
-input[type="date"],
-input[type="password"] {
+.main-input {
     border: none;
     font-size: 16px;
     height: auto;
@@ -44,28 +42,24 @@ input[type="password"] {
     margin: 0 0;
 }
 
-input[type="radio"],
-input[type="checkbox"] {
+.sex-button {
     margin: 0 4px 8px 0;
 }
 
-fieldset {
+.main-fieldset {
     margin-bottom: 30px;
     border: none;
 }
 
-label {
+.main-label {
     display: block;
     margin-bottom: 8px;
 }
 
-label.light {
-    font-weight: 300;
+.lighter-label {
+    font-weight: 200;
+    color: dimgray;
     display: inline;
-}
-
-form {
-    max-width: 480px;
 }
 
 .number {
@@ -122,4 +116,15 @@ form {
 
 .avatar-label {
     margin-top: 15px;
+}
+
+.glow-effect {
+    background-color: #ccc;
+}
+
+.glow-effect.active {
+    border-color: #33c6a4;
+    -webkit-box-shadow: 0 0 25px #33c6a4;
+    -moz-box-shadow: 0 0 25px #33c6a4;
+    box-shadow: 0 0 25px #33c6a4;
 }

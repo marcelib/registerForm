@@ -10,53 +10,56 @@
 </head>
 <body>
 
-<form action="http://edi.iem.pw.edu.pl/bach/register/user/" method="post" enctype="multipart/form-data">
+<form action="http://edi.iem.pw.edu.pl/bach/register/user/" method="post" enctype="multipart/form-data" class="main-form">
 
-    <h1>Sign Up</h1>
+    <h1 class="main-title">Sign Up</h1>
 
     <h2><span class="number">1</span>Fill your information</h2>
-    <fieldset>
+    <fieldset class="main-fieldset">
 
         <div id="login-container">
-            <label for="login">Login:</label>
-            <input type="text" class="non-empty" id="login" name="login" required="required">
+            <label class='main-label' for="login">Login:</label>
+            <input type="text" class="non-empty main-input" id="login" name="login" required="required">
         </div>
 
-        <label for="firstname">First name:</label>
-        <input type="text" class="non-empty" id="firstname" name="firstname" required="required">
-        <label for="lastname">Last name:</label>
-        <input type="text" class="non-empty" id="lastname" name="lastname" required="required">
+        <label  class='main-label' for="firstname">First name:</label>
+        <input type="text" class="non-empty main-input" id="firstname" name="firstname" required="required">
+        <label  class='main-label' for="lastname">Last name:</label>
+        <input type="text" class="non-empty main-input" id="lastname" name="lastname" required="required">
 
         <div id="password-container">
-            <label for="password">Password:</label>
-            <input type="password" class="non-empty" id="password" name="password" required="required">
+            <label  class='main-label' for="password">Password:</label>
+            <input type="password" class="non-empty main-input" id="password" name="password" required="required">
         </div>
 
 
         <div id="repeat-password-container">
-            <label for="repeat-password">Repeat password:</label>
-            <input type="password" class="non-empty" id="repeat-password" name="repeat-password" required="required">
+            <label  class='main-label' for="repeat-password">Repeat password:</label>
+            <input type="password" class="non-empty main-input" id="repeat-password" name="repeat-password" required="required">
         </div>
 
         <div id="pesel-container">
-            <label for="pesel">Pesel:</label>
-            <input type="text" class="non-empty" name="pesel" title="Podaj 11 cyfrowy pesel" id="pesel"
+            <label  class='main-label' for="pesel">Pesel:</label>
+            <input type="text" class="non-empty main-input" name="pesel" title="Podaj 11 cyfrowy pesel" id="pesel"
                    required>
         </div>
 
-        <label>Sex:</label>
-        <div class="gender-button-first">
-            <input type="radio" id="male" value="f" name="sex" required="required">
-            <label for="male" class="light">Male</label></div>
-        <div class="gender-button">
-            <input type="radio" id="female" value="f" name="sex" required="required">
-            <label for="female" class="light">Female</label></div>
+        <div id="sex-container">
+            <label class='main-label' >Sex:</label>
+            <div class="gender-button-first">
+                <input type="radio" class="sex-button" id="male" value="m" name="sex" required="required">
+                <label for="male" class="lighter-label">Male</label></div>
+            <div class="gender-button">
+                <input type="radio" class="sex-button" id="female" value="f" name="sex" required="required">
+                <label for="female" class="lighter-label">Female</label></div>
+        </div>
 
-        <label for="birthdate">Birth date:</label>
-        <input type="date" class="non-empty " name="birthdate" id="birthdate" min="1900-01-01" required="required">
-
+        <div id="birthdate-container">
+            <label  class='main-label' for="birthdate">Birth date:</label>
+            <input type="date" class="non-empty main-input" name="birthdate" id="birthdate" min="1900-01-01" required="required">
+        </div>
         <div id="image-preview-div">
-            <label class="avatar-label" for="photo">Avatar:</label>
+            <label class="main-label avatar-label" for="photo">Avatar:</label>
             <input type="file" name="photo" id="photo" class="non-empty" required="required">
         </div>
     </fieldset>
@@ -66,5 +69,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="js/peselValidation.js"></script>
 <script src="js/stateAndConstants.js"></script>
+<script src="js/birthdateAndSexValidation.js"></script>
 <script src="js/main.js"></script>
 </html>

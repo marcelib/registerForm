@@ -1,6 +1,7 @@
 var stateAndContants = new function () {
     this.SUCCESS_COLOR = "#66cc66";
     this.FAILURE_COLOR = "#ff6666";
+    this.WARNING_COLOR = "#e59814";
     this.passwordsMatch = false;
     this.passwordStrongEnough = false;
     this.loginAvailable = false;
@@ -13,4 +14,6 @@ var stateAndContants = new function () {
     this.passMessage = undefined;
     this.repeatPassMessage = undefined;
     this.loginMessage = undefined;
+    this.sexMessage = undefined;
+    this.birthdateMessage = undefined;
 };
