@@ -21,9 +21,6 @@ var birthdateAndSexValidation = new function () {
     };
 
     this.checkPeselBirthdateCompatibility = function (peselDate, date) {
-        console.log(peselDate);
-        console.log(date);
-        console.log(peselDate.toISOString().substring(0, 10));
         return peselDate.toISOString().substring(0, 10) === date;
     };
 
