@@ -1,12 +1,3 @@
-var peselValidation = peselValidation;
-var passwordsMatch = false;
-var passwordStrongEnough = false;
-var loginAvailable = false;
-var peselCorrect = false;
-var successColor = "#66cc66";
-var failureColor = "#ff6666";
-
-
 $(document).ready(function () {
     addInputListeners();
 });
@@ -70,17 +61,17 @@ function getLoginAvailability() {
 
     $.get(url, function (json) {
         if (json && json[username] === true) {
-            usernameField.style.backgroundColor = failureColor;
-            message.style.color = failureColor;
+            usernameField.style.backgroundColor = applicationState.failureColor;
+            message.style.color = applicationState.failureColor;
             message.innerHTML = "Username already taken!";
-            loginAvailable = false;
+            applicationState.loginAvailable = false;
             onFieldChangeAction();
         }
         else {
-            usernameField.style.backgroundColor = successColor;
-            message.style.color = successColor;
+            usernameField.style.backgroundColor = applicationState.successColor;
+            message.style.color = applicationState.successColor;
             message.innerHTML = "Username available!";
-            loginAvailable = true;
+            applicationState.loginAvailable = true;
             onFieldChangeAction();
         }
     });
@@ -92,7 +83,8 @@ function onFieldChangeAction() {
     var emptyFields = fields.filter(function () {
         return this.value === "";
     });
-    if (!emptyFields.length && passwordsMatch && passwordStrongEnough && loginAvailable && peselCorrect) {
+    if (!emptyFields.length && applicationState.passwordsMatch &&
+        applicationState.passwordStrongEnough && applicationState.loginAvailable && applicationState.peselCorrect) {
         submitForm.removeClass("button-unavailable");
         submitForm.addClass("button-available");
         submitForm.removeAttr("disabled");
@@ -108,17 +100,17 @@ function checkPasswordStrength() {
     var pass1 = document.getElementById('password');
     var message = document.getElementById('password-message');
     if (re.test(pass1.value)) {
-        pass1.style.backgroundColor = successColor;
-        message.style.color = successColor;
+        pass1.style.backgroundColor = applicationState.successColor;
+        message.style.color = applicationState.successColor;
         message.innerHTML = "Password is strong enough!";
-        passwordStrongEnough = true;
+        applicationState.passwordStrongEnough = true;
         onFieldChangeAction();
     } else {
-        pass1.style.backgroundColor = failureColor;
-        message.style.color = failureColor;
+        pass1.style.backgroundColor = applicationState.failureColor;
+        message.style.color = applicationState.failureColor;
         message.innerHTML = "Passwords needs to contain at least 6 signs, " +
             "one lowercase letter, one uppercase letter and a number.";
-        passwordStrongEnough = false;
+        applicationState.passwordStrongEnough = false;
         onFieldChangeAction();
     }
 }
@@ -129,18 +121,18 @@ function checkPasswordMatch() {
     var message = document.getElementById('repeat-password-message');
     if (!pass2.value.length) {
         message.innerHTML = "";
-        passwordsMatch = false;
+        applicationState.passwordsMatch = false;
     } else if (pass1.value == pass2.value) {
-        pass2.style.backgroundColor = successColor;
-        message.style.color = successColor;
+        pass2.style.backgroundColor = applicationState.successColor;
+        message.style.color = applicationState.successColor;
         message.innerHTML = "Passwords Match!";
-        passwordsMatch = true;
+        applicationState.passwordsMatch = true;
         onFieldChangeAction();
     } else {
-        pass2.style.backgroundColor = failureColor;
-        message.style.color = failureColor;
+        pass2.style.backgroundColor = applicationState.failureColor;
+        message.style.color = applicationState.failureColor;
         message.innerHTML = "Passwords Do Not Match!";
-        passwordsMatch = false;
+        applicationState.passwordsMatch = false;
         onFieldChangeAction();
     }
 }

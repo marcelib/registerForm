@@ -59,27 +59,27 @@ var peselValidation = new function () {
     this.peselMaleAction = function (result) {
         var maleButton = document.getElementById("male");
         maleButton.checked = true;
-        that.message.style.color = successColor;
+        that.message.style.color = applicationState.successColor;
         that.message.innerHTML = "Pesel is correct and you have been recognized as male.";
         document.getElementById('birthdate').value = result.date.toISOString().substring(0, 10);
-        peselCorrect = true;
+        applicationState.peselCorrect = true;
         onFieldChangeAction();
     };
 
     this.peselFemaleAction = function (result) {
         var femaleButton = document.getElementById("female");
         femaleButton.checked = true;
-        that.message.style.color = successColor;
+        that.message.style.color = applicationState.successColor;
         that.message.innerHTML = "Pesel is correct and you have been recognized as female.";
         document.getElementById('birthdate').value = result.date.toISOString().substring(0, 10);
-        peselCorrect = true;
+        applicationState.peselCorrect = true;
         onFieldChangeAction();
     };
 
     this.peselIncorrectAction = function () {
-        that.message.style.color = failureColor;
+        that.message.style.color = applicationState.failureColor;
         that.message.innerHTML = "Pesel is incorrect!";
-        peselCorrect = false;
+        applicationState.peselCorrect = false;
         onFieldChangeAction();
     };
 };
